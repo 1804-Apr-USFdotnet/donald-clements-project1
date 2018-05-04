@@ -1,0 +1,57 @@
+﻿@model IEnumerable<RevViews.Models.Restaurant>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Restaurant Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Website)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestaurantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddressLineOne),
+        
+            @Html.DisplayFor(modelItem => item.City),
+        
+            @Html.DisplayFor(modelItem => item.StateCode)
+        
+            @Html.DisplayFor(modelItem => item.PostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Website)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.RestaurantID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.RestaurantID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.RestaurantID })
+        </td>
+    </tr>
+}
+
+</table>
