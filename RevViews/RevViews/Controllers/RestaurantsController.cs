@@ -24,7 +24,7 @@ namespace RevViews.Controllers
 
         public RestaurantsController()
         {
-            _unitOfWork = new UnitOfWork(new RevViewsDB2Entities());
+            _unitOfWork = new UnitOfWork();
         }
         //private RevViewsDB2Entities db = new RevViewsDB2Entities();
 

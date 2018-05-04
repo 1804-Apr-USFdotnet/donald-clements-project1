@@ -23,7 +23,7 @@ namespace RevViews.Controllers
 
         public ReviewsController()
         {
-            _unitOfWork = new UnitOfWork(new RevViewsDB2Entities());
+            _unitOfWork = new UnitOfWork();
         }
 
         // GET: Reviews

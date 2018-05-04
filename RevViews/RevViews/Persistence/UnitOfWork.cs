@@ -15,6 +15,12 @@ namespace RevViews.Persistence
             Reviews = new ReviewRepository(_context);
             Restaurants = new RestaurantRepository(_context);
         }
+        public UnitOfWork()
+        {
+            _context = new RevViewsDB2Entities();
+            Reviews = new ReviewRepository(_context);
+            Restaurants = new RestaurantRepository(_context);
+        }
 
         public IReviewRepository Reviews { get; }
         public IRestaurantRepository Restaurants { get; }

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<RevViews.Models.Review>
+@{
+    var reviews = (IEnumerable<RevViews.Models.Review>) @ViewBag.rev;
+}
+
+<table>
+    @foreach (var item in reviews) {
+        <tr>
+            <dl class="dl-horizontal">
+
+                <dt>
+                    Username
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </dd>
+
+                <dt>
+                    Rating
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </dd>
+
+                <dt>
+                    Headline
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Headline)
+                </dd>
+
+                <dt>
+                    Body
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Body)
+                </dd>
+
+                <dt>
+                    Reviewed on:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.ReviewedOn)
+                </dd>
+
+            </dl>
+        </tr>
+    }
+</table>
