@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
 using RevViews.Core;
 using RevViews.Models;
@@ -43,6 +37,7 @@ namespace RevViews.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             // Restaurant restaurant = _unitOfWork.Restaurants.Find( o=>o.RestaurantID==id).Single();
+            ViewBag.rev = _unitOfWork.Reviews.Find(o => o.RestaurantID == id);
             Restaurant restaurant = _unitOfWork.Restaurants.SingleOrDefault(o => o.RestaurantID == id);
             if (restaurant == null)
             {
