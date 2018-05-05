@@ -9,6 +9,8 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Microsoft.Ajax.Utilities;
 
 namespace RevViews.Models
 {
@@ -41,5 +43,17 @@ namespace RevViews.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual double Rating {
+            get
+            {
+                if (Reviews != null)
+                {
+                    return Reviews.Average(review => review.Rating);
+                }
+
+                return 0;
+            }
+        }
     }
 }
