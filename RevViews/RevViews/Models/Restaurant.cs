@@ -49,7 +49,7 @@ namespace RevViews.Models
             {
                 if (Reviews != null)
                 {
-                    return Reviews.Average(review => review.Rating);
+                    return Math.Round(Reviews.Average(review => review.Rating), 1);
                 }
 
                 return 0;
