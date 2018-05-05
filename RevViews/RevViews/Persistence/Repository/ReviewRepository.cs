@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using RevViews.Context;
 using RevViews.Core;
 using RevViews.Models;
 

@@ -1,4 +1,5 @@
 ﻿using NLog;
+using RevViews.Context;
 using RevViews.Core;
 using RevViews.Models;
 using RevViews.Persistence.Repository;
