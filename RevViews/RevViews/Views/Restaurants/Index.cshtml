@@ -1,10 +1,13 @@
-﻿@model IEnumerable<Restaurant>
+﻿@model IPagedList<Restaurant>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<form method="get" action="@Url.Action("Index")">
+    <input type="search" name="search" />
+    <input type="submit" value="Search By Name" />
+</form>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,54 +15,56 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Restaurant Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Restaurant Name", "Index", new { sort = ViewBag.NameSortParm, search = ViewBag.CurrentSearch })
         </th>
         
         <th>
-            @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm })
+            @Html.ActionLink("Rating", "Index", new { sort = ViewBag.RatingSortParm, search = ViewBag.CurrentSearch })
         </th>
 
         <th>
             Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Phone
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Website)
+            Website
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RestaurantName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressLineOne),
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressLineOne),
 
-            @Html.DisplayFor(modelItem => item.City),
+                @Html.DisplayFor(modelItem => item.City),
 
-            @Html.DisplayFor(modelItem => item.StateCode)
+                @Html.DisplayFor(modelItem => item.StateCode)
 
-            @Html.DisplayFor(modelItem => item.PostalCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Website)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.RestaurantID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.RestaurantID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.RestaurantID })
-        </td>
-    </tr>
-}
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Website)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.RestaurantID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RestaurantID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RestaurantID })
+            </td>
+        </tr>
+    }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new {page, sort = ViewBag.CurrentSort, search = ViewBag.CurrentSearch }))

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using PagedList;
 using RevViews.Core;
 using RevViews.Models;
 using RevViews.Persistence;
@@ -26,14 +27,19 @@ namespace RevViews.Controllers
 
         // GET: Restaurants
         [OutputCache(Duration = 60)]
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sort, string search, int? page)
         {
 
-            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            ViewBag.RatingSortParm =  String.IsNullOrEmpty(sortOrder) ? "Rating" : "";
+            ViewBag.NameSortParm = sort == "Name" ? "name_desc" : "Name";
+            ViewBag.RatingSortParm =  String.IsNullOrEmpty(sort) ? "Rating" : "";
 
-            var restaurants = _unitOfWork.Restaurants.GetAll().OrderByDescending(r=>r.Rating);
-            switch (sortOrder)
+            ViewBag.CurrentSort = sort;
+            ViewBag.CurrentSearch = search;
+
+            var restaurants = _unitOfWork.Restaurants.Find(r => search == null || r.RestaurantName.Contains(search))
+                .OrderByDescending(r => r.Reviews.Average(review => review.Rating));
+
+            switch (sort)
             {
                 case "name_desc":
                     restaurants = restaurants.OrderByDescending(r => r.RestaurantName);
@@ -49,8 +55,10 @@ namespace RevViews.Controllers
                     break;
             }
 
-            //return View(db.Restaurants.ToList());
-            return View(restaurants.ToList());
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+            
+            return View(restaurants.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Restaurants/Details/5
