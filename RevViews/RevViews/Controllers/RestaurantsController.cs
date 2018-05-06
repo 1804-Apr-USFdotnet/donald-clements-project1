@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using RevViews.Core;
 using RevViews.Models;
@@ -23,10 +25,32 @@ namespace RevViews.Controllers
         //private RevViewsDB2Entities db = new RevViewsDB2Entities();
 
         // GET: Restaurants
-        public ActionResult Index()
+        [OutputCache(Duration = 60)]
+        public ActionResult Index(string sortOrder)
         {
+
+            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
+            ViewBag.RatingSortParm =  String.IsNullOrEmpty(sortOrder) ? "Rating" : "";
+
+            var restaurants = _unitOfWork.Restaurants.GetAll().OrderByDescending(r=>r.Rating);
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    restaurants = restaurants.OrderByDescending(r => r.RestaurantName);
+                    break;
+                case "Name":
+                    restaurants = restaurants.OrderBy(r => r.RestaurantName);
+                    break;
+                case "Rating":
+                    restaurants = restaurants.OrderBy(r => r.Rating);
+                    break;
+                default:
+                    restaurants = restaurants.OrderByDescending(r => r.Rating);
+                    break;
+            }
+
             //return View(db.Restaurants.ToList());
-            return View(_unitOfWork.Restaurants.GetAll());
+            return View(restaurants.ToList());
         }
 
         // GET: Restaurants/Details/5

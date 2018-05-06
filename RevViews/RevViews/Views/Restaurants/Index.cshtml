@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RevViews.Models.Restaurant>
+﻿@model IEnumerable<Restaurant>
 
 @{
     ViewBag.Title = "Index";
@@ -12,8 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            Restaurant Name
+            @Html.ActionLink("Restaurant Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
+        
+        <th>
+            @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm })
+        </th>
+
         <th>
             Address
         </th>
@@ -32,12 +37,15 @@
             @Html.DisplayFor(modelItem => item.RestaurantName)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.AddressLineOne),
-        
+
             @Html.DisplayFor(modelItem => item.City),
-        
+
             @Html.DisplayFor(modelItem => item.StateCode)
-        
+
             @Html.DisplayFor(modelItem => item.PostalCode)
         </td>
         <td>
