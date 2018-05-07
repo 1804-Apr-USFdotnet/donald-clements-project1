@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using RevViews.Models;
@@ -17,8 +18,10 @@ namespace RevViews.Context
     {
         public RevViewsDB2Entities()
             : base("name=RevViewsDB2Entities")
+        //: base("name=RevViewsLocalDB")
         {
         }
+
 
         public virtual DbSet<Restaurant> Restaurants { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
