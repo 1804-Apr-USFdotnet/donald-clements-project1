@@ -63,6 +63,7 @@ namespace RevViews.Controllers
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             // Restaurant restaurant = _unitOfWork.Restaurants.Find( o=>o.RestaurantID==id).Single();
+            ViewData["id"] = id;
             ViewBag.rev = _unitOfWork.Reviews.Find(o => o.RestaurantID == id);
             var restaurant = _unitOfWork.Restaurants.Get((int) id);
             if (restaurant == null) return HttpNotFound();

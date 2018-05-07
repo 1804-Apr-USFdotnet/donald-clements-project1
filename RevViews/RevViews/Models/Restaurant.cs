@@ -46,9 +46,17 @@ namespace RevViews.Models
 
         public double Rating()
         {
-            if (Reviews != null)
+            if (Reviews.Count != 0)
             {
-                return Math.Round(Reviews.Average(review => review.Rating), 1);
+                try
+                {
+                    return Math.Round(Reviews.Average(review => review.Rating), 1);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
             }
 
             return 0;

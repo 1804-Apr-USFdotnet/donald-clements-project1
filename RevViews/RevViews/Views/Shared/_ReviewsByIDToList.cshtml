@@ -2,55 +2,58 @@
 @{
     var reviews = (IEnumerable<Review>) ViewBag.rev;
 }
-@Html.ActionLink("Create New", "../Reviews/Create", new {restID = reviews.First().RestaurantID})
+@Html.ActionLink("Create New", "../Reviews/Create", new {restID = ViewData["id"]});
 <table>
-    @foreach (var item in reviews)
+    @if (reviews.Count() != 0)
     {
-        <tr>
-            <dl class="dl-horizontal">
+        foreach (var item in reviews)
+        {
+            <tr>
+                <dl class="dl-horizontal">
 
-                <dt>
-                    Username
-                </dt>
+                    <dt>
+                        Username
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(modelItem => item.Username)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </dd>
 
-                <dt>
-                    Rating
-                </dt>
+                    <dt>
+                        Rating
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(modelItem => item.Rating)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.Rating)
+                    </dd>
 
-                <dt>
-                    Headline
-                </dt>
+                    <dt>
+                        Headline
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(modelItem => item.Headline)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.Headline)
+                    </dd>
 
-                <dt>
-                    Body
-                </dt>
+                    <dt>
+                        Body
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </dd>
 
-                <dt>
-                    Reviewed on:
-                </dt>
+                    <dt>
+                        Reviewed on:
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(modelItem => item.ReviewedOn)
-                </dd>
-                @Html.ActionLink("Edit", "../Reviews/Edit/" + item.ReviewID)
-                @Html.ActionLink("Delete", "../Reviews/Delete", new {id = item.ReviewID})
-            </dl>
-        </tr>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.ReviewedOn)
+                    </dd>
+                    @Html.ActionLink("Edit", "../Reviews/Edit/" + item.ReviewID)
+                    @Html.ActionLink("Delete", "../Reviews/Delete", new {id = item.ReviewID})
+                </dl>
+            </tr>
+        }
     }
 </table>
