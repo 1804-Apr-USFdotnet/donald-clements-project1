@@ -40,7 +40,7 @@ namespace RevViews.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Review review = _unitOfWork.Reviews.SingleOrDefault(o => o.RestaurantID == id);
+            Review review = _unitOfWork.Reviews.Get((int)id);
             if (review == null)
             {
                 return HttpNotFound();
@@ -49,9 +49,10 @@ namespace RevViews.Controllers
         }
 
         // GET: Reviews/Create
-        public ActionResult Create()
+        public ActionResult Create(int restID)
         {
-            ViewBag.RestaurantID = new SelectList(_unitOfWork.Restaurants.GetAll(), "RestaurantID", "RestaurantName");
+            ViewBag.RestaurantID = restID;
+            ViewBag.RestaurantName = _unitOfWork.Restaurants.Get(restID).RestaurantName;
             return View();
         }
 
@@ -60,16 +61,20 @@ namespace RevViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReviewID,RestaurantID,Username,Rating,Headline,Body,ReviewedOn")] Review review)
+        public ActionResult Create([Bind(Include = "RestaurantID,Username,Rating,Headline,Body,ReviewedOn")] Review review)
         {
+
+            review.Restaurant = _unitOfWork.Restaurants.Get(review.RestaurantID);
+            review.ReviewID = null;
             if (ModelState.IsValid)
             {
                 _unitOfWork.Reviews.Add(review);
                 _unitOfWork.Complete();
-                return RedirectToAction("Index");
+                return RedirectToAction("../Restaurants/Details/"+review.RestaurantID);
             }
 
-            ViewBag.RestaurantID = new SelectList(_unitOfWork.Restaurants.GetAll(), "RestaurantID", "RestaurantName", review.RestaurantID);
+            ViewBag.RestaurantID = review.RestaurantID;
+            ViewBag.RestaurantName = _unitOfWork.Restaurants.Get(review.RestaurantID).RestaurantName;
             return View(review);
         }
 
@@ -80,7 +85,7 @@ namespace RevViews.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Review review = _unitOfWork.Reviews.SingleOrDefault(o => o.RestaurantID == id);
+            Review review = _unitOfWork.Reviews.Get((int)id);
             if (review == null)
             {
                 return HttpNotFound();
@@ -112,7 +117,7 @@ namespace RevViews.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Review review = _unitOfWork.Reviews.SingleOrDefault(o => o.RestaurantID == id);
+            Review review = _unitOfWork.Reviews.Get((int) id);
             if (review == null)
             {
                 return HttpNotFound();
@@ -125,7 +130,7 @@ namespace RevViews.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Review review = _unitOfWork.Reviews.SingleOrDefault(o => o.RestaurantID == id);
+            Review review = _unitOfWork.Reviews.Get((int)id);
             _unitOfWork.Reviews.Remove(review);
             _unitOfWork.Complete();
             return RedirectToAction("Index");

@@ -18,7 +18,7 @@ namespace RevViews.Models
     public partial class Review
     {
         [Key]
-        public int ReviewID { get; set; }
+        public int? ReviewID { get; set; }
         public int RestaurantID { get; set; }
         public string Username { get; set; }
         [Required]

@@ -70,7 +70,7 @@ namespace RevViews.Controllers
             }
             // Restaurant restaurant = _unitOfWork.Restaurants.Find( o=>o.RestaurantID==id).Single();
             ViewBag.rev = _unitOfWork.Reviews.Find(o => o.RestaurantID == id);
-            Restaurant restaurant = _unitOfWork.Restaurants.SingleOrDefault(o => o.RestaurantID == id);
+            Restaurant restaurant = _unitOfWork.Restaurants.Get((int)id);
             if (restaurant == null)
             {
                 return HttpNotFound();
@@ -107,7 +107,7 @@ namespace RevViews.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurant restaurant = _unitOfWork.Restaurants.SingleOrDefault(o => o.RestaurantID == id);
+            Restaurant restaurant = _unitOfWork.Restaurants.Get((int)id);
             if (restaurant == null)
             {
                 return HttpNotFound();
@@ -137,7 +137,7 @@ namespace RevViews.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurant restaurant = _unitOfWork.Restaurants.SingleOrDefault(o => o.RestaurantID == id);
+            Restaurant restaurant = _unitOfWork.Restaurants.Get((int)id);
             if (restaurant == null)
             {
                 return HttpNotFound();
@@ -150,7 +150,7 @@ namespace RevViews.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Restaurant restaurant = _unitOfWork.Restaurants.SingleOrDefault(o => o.RestaurantID == id);
+            Restaurant restaurant = _unitOfWork.Restaurants.Get(id);
             _unitOfWork.Restaurants.Remove(restaurant);
             _unitOfWork.Complete();
             return RedirectToAction("Index");

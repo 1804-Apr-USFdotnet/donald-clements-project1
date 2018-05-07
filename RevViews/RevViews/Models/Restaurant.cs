@@ -25,7 +25,7 @@ namespace RevViews.Models
             this.Reviews = new HashSet<Review>();
         }
         [Key]
-        public int RestaurantID { get; set; }
+        public int? RestaurantID { get; set; }
         [Required]
         public string RestaurantName { get; set; }
         [Required]
