@@ -1,7 +1,5 @@
-﻿using NLog;
-using RevViews.Context;
+﻿using RevViews.Context;
 using RevViews.Core;
-using RevViews.Models;
 using RevViews.Persistence.Repository;
 
 namespace RevViews.Persistence
@@ -16,6 +14,7 @@ namespace RevViews.Persistence
             Reviews = new ReviewRepository(_context);
             Restaurants = new RestaurantRepository(_context);
         }
+
         public UnitOfWork()
         {
             _context = new RevViewsDB2Entities();

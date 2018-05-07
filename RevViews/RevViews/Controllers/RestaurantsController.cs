@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using PagedList;
@@ -11,7 +10,6 @@ namespace RevViews.Controllers
 {
     public class RestaurantsController : Controller
     {
-
         private readonly IUnitOfWork _unitOfWork;
 
         public RestaurantsController(IUnitOfWork unitOfWork)
@@ -26,12 +24,11 @@ namespace RevViews.Controllers
         //private RevViewsDB2Entities db = new RevViewsDB2Entities();
 
         // GET: Restaurants
-        
+
         public ActionResult Index(string sort, string search, int? page)
         {
-
             ViewBag.NameSortParm = sort == "Name" ? "name_desc" : "Name";
-            ViewBag.RatingSortParm =  String.IsNullOrEmpty(sort) ? "Rating" : "";
+            ViewBag.RatingSortParm = string.IsNullOrEmpty(sort) ? "Rating" : "";
 
             ViewBag.CurrentSort = sort;
             ViewBag.CurrentSearch = search;
@@ -55,26 +52,20 @@ namespace RevViews.Controllers
                     break;
             }
 
-            int pageSize = 5;
-            int pageNumber = page ?? 1;
-            
+            var pageSize = 5;
+            var pageNumber = page ?? 1;
+
             return View(restaurants.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Restaurants/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             // Restaurant restaurant = _unitOfWork.Restaurants.Find( o=>o.RestaurantID==id).Single();
             ViewBag.rev = _unitOfWork.Reviews.Find(o => o.RestaurantID == id);
-            Restaurant restaurant = _unitOfWork.Restaurants.Get((int)id);
-            if (restaurant == null)
-            {
-                return HttpNotFound();
-            }
+            var restaurant = _unitOfWork.Restaurants.Get((int) id);
+            if (restaurant == null) return HttpNotFound();
             return View(restaurant);
         }
 
@@ -89,7 +80,9 @@ namespace RevViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RestaurantID,RestaurantName,AddressLineOne,City,StateCode,PostalCode,Phone,Website")] Restaurant restaurant)
+        public ActionResult Create([Bind(Include =
+                "RestaurantID,RestaurantName,AddressLineOne,City,StateCode,PostalCode,Phone,Website")]
+            Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {
@@ -97,21 +90,16 @@ namespace RevViews.Controllers
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
+
             return View(restaurant);
         }
 
         // GET: Restaurants/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Restaurant restaurant = _unitOfWork.Restaurants.Get((int)id);
-            if (restaurant == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var restaurant = _unitOfWork.Restaurants.Get((int) id);
+            if (restaurant == null) return HttpNotFound();
             return View(restaurant);
         }
 
@@ -120,7 +108,8 @@ namespace RevViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RestaurantID,RestaurantName,AddressLineOne,City,StateCode,PostalCode,Phone,Website")] Restaurant restaurant)
+        public ActionResult Edit([Bind(Include =
+                "RestaurantID,RestaurantName,AddressLineOne,City,StateCode,PostalCode,Phone,Website")] Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {
@@ -128,30 +117,26 @@ namespace RevViews.Controllers
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
+
             return View(restaurant);
         }
 
         // GET: Restaurants/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Restaurant restaurant = _unitOfWork.Restaurants.Get((int)id);
-            if (restaurant == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var restaurant = _unitOfWork.Restaurants.Get((int) id);
+            if (restaurant == null) return HttpNotFound();
             return View(restaurant);
         }
 
         // POST: Restaurants/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Restaurant restaurant = _unitOfWork.Restaurants.Get(id);
+            var restaurant = _unitOfWork.Restaurants.Get(id);
             _unitOfWork.Restaurants.Remove(restaurant);
             _unitOfWork.Complete();
             return RedirectToAction("Index");
@@ -159,10 +144,7 @@ namespace RevViews.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
+            if (disposing) _unitOfWork.Dispose();
             base.Dispose(disposing);
         }
     }

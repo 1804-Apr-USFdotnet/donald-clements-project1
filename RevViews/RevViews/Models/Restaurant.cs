@@ -7,29 +7,51 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+
 namespace RevViews.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Restaurant
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Restaurant()
         {
             this.Reviews = new HashSet<Review>();
         }
-    
-        public int RestaurantID { get; set; }
-        public string RestaurantName { get; set; }
-        public string AddressLineOne { get; set; }
-        public string City { get; set; }
+
+        [Key] public int? RestaurantID { get; set; }
+        [Required] public string RestaurantName { get; set; }
+        [Required] public string AddressLineOne { get; set; }
+        [Required] public string City { get; set; }
+
+        [Required]
+        [StringLength(2, ErrorMessage = "The state code must be in proper format. E.g. TX")]
         public string StateCode { get; set; }
+
+        [Required]
+        [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
-        public string Phone { get; set; }
-        public string Website { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [DataType(DataType.PhoneNumber)] public string Phone { get; set; }
+        [DataType(DataType.Url)] public string Website { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public double Rating()
+        {
+            if (Reviews != null)
+            {
+                return Math.Round(Reviews.Average(review => review.Rating), 1);
+            }
+
+            return 0;
+        }
     }
 }

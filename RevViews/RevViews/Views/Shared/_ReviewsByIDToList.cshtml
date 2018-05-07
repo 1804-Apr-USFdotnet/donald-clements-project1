@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<Review>
 @{
-    var reviews = (IEnumerable<Review>)@ViewBag.rev;
+    var reviews = (IEnumerable<Review>) ViewBag.rev;
 }
-@Html.ActionLink("Create New", "../Reviews/Create", new{ restID = reviews.First().RestaurantID })
+@Html.ActionLink("Create New", "../Reviews/Create", new {restID = reviews.First().RestaurantID})
 <table>
     @foreach (var item in reviews)
     {
@@ -48,8 +48,8 @@
                 <dd>
                     @Html.DisplayFor(modelItem => item.ReviewedOn)
                 </dd>
-                @Html.ActionLink("Edit", "../Reviews/Edit/"+item.ReviewID)
-                @Html.ActionLink("Delete", "../Reviews/Delete", new { id = item.ReviewID })
+                @Html.ActionLink("Edit", "../Reviews/Edit/" + item.ReviewID)
+                @Html.ActionLink("Delete", "../Reviews/Delete", new {id = item.ReviewID})
             </dl>
         </tr>
     }

@@ -7,25 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RevViews.Models
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using RevViews.Models;
+
+namespace RevViews.Context
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class RevViewsDB2Entities : DbContext
+    public class RevViewsDB2Entities : DbContext
     {
         public RevViewsDB2Entities()
             : base("name=RevViewsDB2Entities")
         {
         }
-    
+
+        public virtual DbSet<Restaurant> Restaurants { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
-        public virtual DbSet<Restaurant> Restaurants { get; set; }
-        public virtual DbSet<Review> Reviews { get; set; }
     }
 }

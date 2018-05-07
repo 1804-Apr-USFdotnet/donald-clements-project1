@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using RevViews.Models;
+﻿using RevViews.Models;
 
 namespace RevViews.Core
 {

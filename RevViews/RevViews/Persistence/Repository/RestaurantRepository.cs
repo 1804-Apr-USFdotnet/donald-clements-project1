@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using RevViews.Context;
 using RevViews.Core;
 using RevViews.Models;
@@ -14,6 +12,5 @@ namespace RevViews.Persistence.Repository
         }
 
         public RevViewsDB2Entities RevViewsContext => Context as RevViewsDB2Entities;
-
     }
 }
