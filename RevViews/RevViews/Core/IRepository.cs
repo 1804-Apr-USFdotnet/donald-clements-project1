@@ -18,7 +18,9 @@ namespace RevViews.Core
         void Add(TEnt entity);
         void AddRange(IEnumerable<TEnt> entities);
 
-        void Remove(TEnt entity);
+        void Update(TEnt ent);
+
+        void Remove(TEnt ent);
         void RemoveRange(IEnumerable<TEnt> entities);
     }
 }

@@ -19,7 +19,6 @@
             <label class="control-label col-md-2" for="RestaurantID">Restaurant Name: </label>
             <p>      <strong>@ViewBag.RestaurantName </strong> </p>
             <div class="col-md-10">
-                @*@Html.HiddenFor(model=>model.RestaurantID, (int) ViewBag.RestaurantID)*@
                 <input type="hidden" name="RestaurantID" value="@((int)ViewBag.RestaurantID)">
             </div>
         </div>

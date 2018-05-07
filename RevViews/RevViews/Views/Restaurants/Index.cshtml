@@ -42,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.RestaurantName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                @item.Rating() @*FormatThis*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AddressLineOne),

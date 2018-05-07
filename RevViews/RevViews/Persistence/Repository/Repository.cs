@@ -47,6 +47,11 @@ namespace RevViews.Persistence.Repository
             _ents.Add(ent);
         }
 
+        public void Update(TEnt ent)
+        {
+            Context.Entry(ent).State = EntityState.Modified;
+        }
+
         public void AddRange(IEnumerable<TEnt> ents)
         {
             _ents.AddRange(ents);

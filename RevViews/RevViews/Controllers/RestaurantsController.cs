@@ -26,7 +26,7 @@ namespace RevViews.Controllers
         //private RevViewsDB2Entities db = new RevViewsDB2Entities();
 
         // GET: Restaurants
-        [OutputCache(Duration = 60)]
+        
         public ActionResult Index(string sort, string search, int? page)
         {
 
@@ -37,7 +37,7 @@ namespace RevViews.Controllers
             ViewBag.CurrentSearch = search;
 
             var restaurants = _unitOfWork.Restaurants.Find(r => search == null || r.RestaurantName.Contains(search))
-                .OrderByDescending(r => r.Reviews.Average(review => review.Rating));
+                .OrderByDescending(r => r.Rating());
 
             switch (sort)
             {
@@ -48,10 +48,10 @@ namespace RevViews.Controllers
                     restaurants = restaurants.OrderBy(r => r.RestaurantName);
                     break;
                 case "Rating":
-                    restaurants = restaurants.OrderBy(r => r.Rating);
+                    restaurants = restaurants.OrderBy(r => r.Rating());
                     break;
                 default:
-                    restaurants = restaurants.OrderByDescending(r => r.Rating);
+                    restaurants = restaurants.OrderByDescending(r => r.Rating());
                     break;
             }
 
@@ -124,6 +124,7 @@ namespace RevViews.Controllers
         {
             if (ModelState.IsValid)
             {
+                _unitOfWork.Restaurants.Update(restaurant);
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }

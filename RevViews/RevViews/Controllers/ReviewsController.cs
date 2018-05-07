@@ -103,6 +103,7 @@ namespace RevViews.Controllers
         {
             if (ModelState.IsValid)
             {
+                _unitOfWork.Reviews.Update(review);
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
