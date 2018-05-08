@@ -13,16 +13,32 @@ namespace RevViews.Persistence
 
         public UnitOfWork(RevViewsDB2Entities context)
         {
-            _context = context;
-            Reviews = new ReviewRepository(_context);
-            Restaurants = new RestaurantRepository(_context);
+            try
+            {
+                _context = context;
+                Reviews = new ReviewRepository(_context);
+                Restaurants = new RestaurantRepository(_context);
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+            }
+
         }
 
         public UnitOfWork()
         {
-            _context = new RevViewsDB2Entities();
-            Reviews = new ReviewRepository(_context);
-            Restaurants = new RestaurantRepository(_context);
+            try
+            {
+                _context = new RevViewsDB2Entities();
+                Reviews = new ReviewRepository(_context);
+                Restaurants = new RestaurantRepository(_context);
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+            }
+            
         }
 
         public IReviewRepository Reviews { get; }

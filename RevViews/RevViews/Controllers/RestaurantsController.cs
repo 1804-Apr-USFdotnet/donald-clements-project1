@@ -1,15 +1,18 @@
-﻿using PagedList;
+﻿using System;
+using PagedList;
 using RevViews.Core;
 using RevViews.Models;
 using RevViews.Persistence;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using NLog;
 
 namespace RevViews.Controllers
 {
     public class RestaurantsController : Controller
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly IUnitOfWork _unitOfWork;
 
         public RestaurantsController(IUnitOfWork unitOfWork)
@@ -27,7 +30,9 @@ namespace RevViews.Controllers
 
         public ActionResult Index(string sort, string search, int? page)
         {
-            ViewBag.NameSortParm = sort == "Name" ? "name_desc" : "Name";
+            try
+            {
+             ViewBag.NameSortParm = sort == "Name" ? "name_desc" : "Name";
             ViewBag.RatingSortParm = string.IsNullOrEmpty(sort) ? "Rating" : "";
 
             ViewBag.CurrentSort = sort;
@@ -54,8 +59,15 @@ namespace RevViews.Controllers
 
             var pageSize = 5;
             var pageNumber = page ?? 1;
-
-            return View(restaurants.ToPagedList(pageNumber, pageSize));
+           
+                return View(restaurants.ToPagedList(pageNumber, pageSize));
+            }
+            catch (Exception e)
+            {
+               logger.Error(e);
+               return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
         }
 
         // GET: Restaurants/Details/5
