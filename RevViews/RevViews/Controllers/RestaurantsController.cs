@@ -124,7 +124,7 @@ namespace RevViews.Controllers
             {
                 _unitOfWork.Restaurants.Update(restaurant);
                 _unitOfWork.Complete();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/"+restaurant.RestaurantID);
             }
 
             return View(restaurant);
