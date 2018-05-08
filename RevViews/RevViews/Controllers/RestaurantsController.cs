@@ -118,6 +118,10 @@ namespace RevViews.Controllers
         public ActionResult Edit([Bind(Include =
                 "RestaurantID,RestaurantName,AddressLineOne,City,StateCode,PostalCode,Phone,Website")] Restaurant restaurant)
         {
+            if (string.IsNullOrWhiteSpace(restaurant.Website))
+            {
+                restaurant.Website = "NA";
+            }
             if (ModelState.IsValid)
             {
                 _unitOfWork.Restaurants.Update(restaurant);
