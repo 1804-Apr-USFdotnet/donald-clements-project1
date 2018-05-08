@@ -63,9 +63,16 @@
             @Html.DisplayNameFor(model => model.Website)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
+        @if (Model.Website == "NA")
+        {
+            <dd>NA</dd>
+        }
+        else
+        {
+            <dd>
+                @Html.DisplayFor(model => model.Website)
+            </dd>
+        }
 
     </dl>
 

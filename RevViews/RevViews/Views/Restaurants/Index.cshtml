@@ -11,7 +11,8 @@
 </form>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    Do not see your restaurant here?
+    @Html.ActionLink("Add it!", "Create")
 </p>
 <table class="table">
     <tr>
@@ -42,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.RestaurantName)
             </td>
             <td>
-                @item.Rating() @*FormatThis*@
+                @item.Rating()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AddressLineOne),
@@ -56,9 +57,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Website)
-            </td>
+
+            @if (item.Website == "NA")
+            {
+              <td>NA</td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website)
+                </td>
+            }
+
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new {id = item.RestaurantID}) |
                 @Html.ActionLink("Details", "Details", new {id = item.RestaurantID}) |

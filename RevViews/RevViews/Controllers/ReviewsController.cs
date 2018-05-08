@@ -39,7 +39,7 @@ namespace RevViews.Controllers
         // GET: Reviews/Create
         public ActionResult Create(int restID)
         {
-            ViewBag.RestaurantID = restID;
+            ViewData["RestaurantID"] = restID;
             ViewBag.RestaurantName = _unitOfWork.Restaurants.Get(restID).RestaurantName;
             return View();
         }
@@ -114,7 +114,7 @@ namespace RevViews.Controllers
             var review = _unitOfWork.Reviews.Get(id);
             _unitOfWork.Reviews.Remove(review);
             _unitOfWork.Complete();
-            return RedirectToAction("Index");
+            return RedirectToAction(("../Restaurants/Details/"+review.RestaurantID));
         }
 
         protected override void Dispose(bool disposing)

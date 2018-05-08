@@ -25,25 +25,35 @@ namespace RevViews.Models
         }
 
         [Key] public int? RestaurantID { get; set; }
+        [Display(Name = "Restaurant Name")]
         [Required] public string RestaurantName { get; set; }
+        [Display(Name = "Street")]
         [Required] public string AddressLineOne { get; set; }
         [Required] public string City { get; set; }
 
         [Required]
-        [StringLength(2, ErrorMessage = "The state code must be in proper format. E.g. TX")]
+        [Display(Name = "State Code")]
+        [RegularExpression(@"^(?:A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$",
+            ErrorMessage = "The state code must be in proper format. E.g. TX")]
         public string StateCode { get; set; }
 
-        [Required]
+        [Display(Name = "Postal Code")]
+        [Required(ErrorMessage = "Zip is Required")]
+        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip")]
         [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
 
-        [DataType(DataType.PhoneNumber)] public string Phone { get; set; }
+        [Display(Name = "Listed Phone")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string Phone { get; set; }
         [DataType(DataType.Url)] public string Website { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
             "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
 
+        
         public double Rating()
         {
             if (Reviews.Count != 0)

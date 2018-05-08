@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    List<Restaurant> top3 = (List<Restaurant>)ViewData["top3"];
 }
 
 <div class="jumbotron">
@@ -28,8 +29,12 @@
         <p></p>
     </div>
     <div class="col-md-4">
-        <h2></h2>
-        <p></p>
-        <p></p>
+        <h2>Top 3</h2>
+        <ol>
+        @foreach (Restaurant r in top3)
+        {
+            <li>@Html.ActionLink(r.RestaurantName,("../Restaurants/Details/"+r.RestaurantID))    Rating: @r.Rating()</li>
+        }
+        </ol>
     </div>
 </div>

@@ -2,7 +2,7 @@
 @{
     var reviews = (IEnumerable<Review>) ViewBag.rev;
 }
-@Html.ActionLink("Create New", "../Reviews/Create", new {restID = ViewData["id"]});
+@Html.ActionLink("Share your story. Write a review!", "../Reviews/Create", new {restID = ViewData["id"]})
 <table>
     @if (reviews.Count() != 0)
     {

@@ -18,7 +18,7 @@ namespace RevViews.Context
     {
         public RevViewsDB2Entities()
             : base("name=RevViewsDB2Entities")
-        //: base("name=RevViewsLocalDB")
+              //: base("name=RevViewsLocalDB")
         {
         }
 

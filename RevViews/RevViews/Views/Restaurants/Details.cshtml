@@ -23,15 +23,15 @@
         </dd>
 
         <dt>
-            Rating @*FormatThis*@
+            @Html.DisplayName("Rating")
         </dt>
 
         <dd>
-            @Model.Rating() @*FormatThis*@
+           @Model.Rating()
         </dd>
 
         <dt>
-            Address
+            @Html.DisplayName("Address")
         </dt>
 
         <dd>
@@ -57,9 +57,16 @@
             @Html.DisplayNameFor(model => model.Website)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
+        @if (Model.Website == "NA")
+        {
+            <dd>NA</dd>
+        }
+        else
+        {
+            <dd>
+                @Html.DisplayFor(model => model.Website)
+            </dd>
+        }
 
     </dl>
 </div>

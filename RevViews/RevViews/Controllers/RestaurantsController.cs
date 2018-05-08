@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.WebPages;
+using Microsoft.Ajax.Utilities;
 using PagedList;
 using RevViews.Core;
 using RevViews.Models;
@@ -85,6 +87,10 @@ namespace RevViews.Controllers
                 "RestaurantID,RestaurantName,AddressLineOne,City,StateCode,PostalCode,Phone,Website")]
             Restaurant restaurant)
         {
+            if (string.IsNullOrWhiteSpace(restaurant.Website))
+            {
+                restaurant.Website = "NA";
+            }
             if (ModelState.IsValid)
             {
                 _unitOfWork.Restaurants.Add(restaurant);
