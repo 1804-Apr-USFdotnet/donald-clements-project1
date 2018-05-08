@@ -1,11 +1,14 @@
-﻿using RevViews.Context;
+﻿using System;
+using RevViews.Context;
 using RevViews.Core;
 using RevViews.Persistence.Repository;
+using NLog;
 
 namespace RevViews.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly RevViewsDB2Entities _context;
 
         public UnitOfWork(RevViewsDB2Entities context)
@@ -27,7 +30,16 @@ namespace RevViews.Persistence
 
         public int Complete()
         {
-            return _context.SaveChanges();
+            try
+            {
+                //logger.Info("Something Saved Test");
+                return _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return 0;
+            }
         }
 
         public void Dispose()

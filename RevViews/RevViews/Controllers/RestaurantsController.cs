@@ -1,12 +1,10 @@
-﻿using System.Linq;
-using System.Net;
-using System.Web.Mvc;
-using System.Web.WebPages;
-using Microsoft.Ajax.Utilities;
-using PagedList;
+﻿using PagedList;
 using RevViews.Core;
 using RevViews.Models;
 using RevViews.Persistence;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace RevViews.Controllers
 {
