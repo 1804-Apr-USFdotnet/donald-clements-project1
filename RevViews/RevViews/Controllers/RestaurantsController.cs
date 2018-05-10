@@ -12,7 +12,7 @@ namespace RevViews.Controllers
 {
     public class RestaurantsController : Controller
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly IUnitOfWork _unitOfWork;
 
         public RestaurantsController(IUnitOfWork unitOfWork)
