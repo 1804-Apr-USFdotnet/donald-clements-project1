@@ -10,7 +10,7 @@ node('master'){
     }
     stage('package') {
         dir("RevViews"){
-            bat 'msbuild RevViews /t:package /p:MvcBuildViews=true'
+            bat 'msbuild RevViews /t:package'
         }
     }
     stage('deploy') {
