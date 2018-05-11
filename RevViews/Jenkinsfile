@@ -4,15 +4,15 @@ node('master'){
     }
         stage('build'){
             dir("RevViews"){
-                bat 'nuget restore'
-                bat 'msbuild.exe'
+                bat nuget restore
+                bat msbuild.exe
             }
     }
     stage('analyze') {
         try {
             dir('RevViews') {
                 bat 'SonarQube.Scanner.MSBuild.exe begin /k:"Project1_RevViews" /d:sonar.organization="silveranstavern-github"'
-                bat 'MsBuild.exe /t:Rebuild'
+                bat MsBuild.exe
                 bat 'SonarQube.Scanner.MSBuild.exe end'
             }
         }
