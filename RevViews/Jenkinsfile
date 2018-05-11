@@ -29,7 +29,7 @@ node('master'){
     stage('deploy') {
                 dir('RevViews') {
             dir('RevViews/obj/Debug/Package') {
-                bat "\"C:\\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe\" -source:package='C:\\Program Files (x86)\\Jenkins\\workspace\\DDCPipeline\\RevViews\\RevViews\\obj\\Debug\\Package\\RevViews.zip' -dest:auto,computerName=\"https://ec2-18-216-92-136.us-east-2.compute.amazonaws.com:8172/msdeploy.axd\",userName=\"WDeployAdmin\",password=\"${env.PassWord}\",authtype=\"basic\",includeAcls=\"False\" -verb:sync -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParamFile:\"C:\\Program Files (x86)\\Jenkins\\workspace\\DDCPipeline\\RevViews\\RevViews\\obj\\Debug\\Package\\RevViews.SetParameters.xml\" -AllowUntrusted=True"
+                bat "\"C:\\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe\" -source:package='C:\\Program Files (x86)\\Jenkins\\workspace\\DDCPipeline\\RevViews\\RevViews\\obj\\Debug\\Package\\RevViews.zip' -dest:auto,computerName=\"https://18.191.54.203:8172/msdeploy.axd\",userName=\"WDeployAdmin\",password=\"${env.PassWord}\",authtype=\"basic\",includeAcls=\"False\" -verb:sync -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParamFile:\"C:\\Program Files (x86)\\Jenkins\\workspace\\DDCPipeline\\RevViews\\RevViews\\obj\\Debug\\Package\\RevViews.SetParameters.xml\" -AllowUntrusted=True"
             }
         }      
     }
