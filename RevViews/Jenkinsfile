@@ -22,3 +22,6 @@ node('master'){
     }
 }
 
+def slackError(stageName) {
+    slackSend color: 'danger', message: "${stageName} stage failed. [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString[0..-14]}]"
+}

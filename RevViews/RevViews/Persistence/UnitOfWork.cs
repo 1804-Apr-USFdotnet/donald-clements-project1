@@ -48,7 +48,7 @@ namespace RevViews.Persistence
         {
             try
             {
-                //logger.Info("Something Saved Test");
+                logger.Info("Something Saved Test");
                 return _context.SaveChanges();
             }
             catch (Exception e)
