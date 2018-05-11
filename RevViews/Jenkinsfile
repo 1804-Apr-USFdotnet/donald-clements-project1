@@ -8,6 +8,19 @@ node('master'){
                 bat 'msbuild.exe'
             }
     }
+    stage('analyze') {
+        try {
+            dir('RevViews') {
+                bat 'SonarQube.Scanner.MSBuild begin /k:Project1_RevViews /o:0.1.0'
+                bat 'msbuild.exe'
+                bat 'SonarQube.Scanner.MSbuild end'
+            }
+        }
+        catch (exc) {
+            slackError('analyze')
+            throw exc
+        }
+    }
     stage('package') {
         dir("RevViews"){
             bat 'msbuild RevViews /t:package'
